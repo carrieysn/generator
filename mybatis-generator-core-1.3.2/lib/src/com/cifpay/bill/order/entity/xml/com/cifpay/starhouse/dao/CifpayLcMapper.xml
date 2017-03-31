@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cifpay.starhouse.dao.CifpayLcDao">
+<resultMap id="baseResultMap" type="CifpayLc"><id property="lcId" column="LC_ID"/>
+<result property="batchNo" column="BATCH_NO"/>
+<result property="productId" column="PRODUCT_ID"/>
+<result property="productCode" column="PRODUCT_CODE"/>
+<result property="lcNo" column="LC_NO"/>
+<result property="lcType" column="LC_TYPE"/>
+<result property="lcCurrency" column="LC_CURRENCY"/>
+<result property="lcAmount" column="LC_AMOUNT"/>
+<result property="lcFreezingAmount" column="LC_FREEZING_AMOUNT"/>
+<result property="lcBalance" column="LC_BALANCE"/>
+<result property="mid" column="MID"/>
+<result property="orderId" column="ORDER_ID"/>
+<result property="payerId" column="PAYER_ID"/>
+<result property="payerAccno" column="PAYER_ACCNO"/>
+<result property="payerType" column="PAYER_TYPE"/>
+<result property="payerBankCode" column="PAYER_BANK_CODE"/>
+<result property="payerBankName" column="PAYER_BANK_NAME"/>
+<result property="payerMobile" column="PAYER_MOBILE"/>
+<result property="recvId" column="RECV_ID"/>
+<result property="recvAccno" column="RECV_ACCNO"/>
+<result property="recvType" column="RECV_TYPE"/>
+<result property="recvBankCode" column="RECV_BANK_CODE"/>
+<result property="recvBankName" column="RECV_BANK_NAME"/>
+<result property="recvMobile" column="RECV_MOBILE"/>
+<result property="lcStatus" column="LC_STATUS"/>
+<result property="recvValidTime" column="RECV_VALID_TIME"/>
+<result property="sendValidTime" column="SEND_VALID_TIME"/>
+<result property="confirmValidTime" column="CONFIRM_VALID_TIME"/>
+<result property="payValidTime" column="PAY_VALID_TIME"/>
+<result property="lcStateReturnUrl" column="LC_STATE_RETURN_URL"/>
+<result property="lcStateNotifyUrl" column="LC_STATE_NOTIFY_URL"/>
+<result property="lcOrderDetailUrl" column="LC_ORDER_DETAIL_URL"/>
+<result property="thirdPartyCode" column="THIRD_PARTY_CODE"/>
+<result property="payType" column="PAY_TYPE"/>
+<result property="isValid" column="IS_VALID"/>
+<result property="createTime" column="CREATE_TIME"/>
+<result property="updateTime" column="UPDATE_TIME"/>
+<result property="remark" column="REMARK"/>
+</resultMap>
+
+<sql id="baseColumns">LC_ID,BATCH_NO,PRODUCT_ID,PRODUCT_CODE,LC_NO,LC_TYPE,LC_CURRENCY,LC_AMOUNT,LC_FREEZING_AMOUNT,LC_BALANCE,MID,ORDER_ID,PAYER_ID,PAYER_ACCNO,PAYER_TYPE,PAYER_BANK_CODE,PAYER_BANK_NAME,PAYER_MOBILE,RECV_ID,RECV_ACCNO,RECV_TYPE,RECV_BANK_CODE,RECV_BANK_NAME,RECV_MOBILE,LC_STATUS,RECV_VALID_TIME,SEND_VALID_TIME,CONFIRM_VALID_TIME,PAY_VALID_TIME,LC_STATE_RETURN_URL,LC_STATE_NOTIFY_URL,LC_ORDER_DETAIL_URL,THIRD_PARTY_CODE,PAY_TYPE,IS_VALID,CREATE_TIME,UPDATE_TIME,REMARK</sql>
+
+<select id="get" statementType="PREPARED" parameterType="java.lang.Long" resultMap="baseResultMap">
+SELECT <include refid="baseColumns" /> FROM cifpay_lc WHERE LC_ID=#{lcId}</select>
+
+<insert id="add" statementType="PREPARED" parameterType="CifpayLc">
+<selectKey keyProperty="LC_ID" order="AFTER" resultType="java.lang.Long">
+SELECT LAST_INSERT_ID()</selectKey>
+INSERT INTO cifpay_lc(BATCH_NO,PRODUCT_ID,PRODUCT_CODE,LC_NO,LC_TYPE,LC_CURRENCY,LC_AMOUNT,LC_FREEZING_AMOUNT,LC_BALANCE,MID,ORDER_ID,PAYER_ID,PAYER_ACCNO,PAYER_TYPE,PAYER_BANK_CODE,PAYER_BANK_NAME,PAYER_MOBILE,RECV_ID,RECV_ACCNO,RECV_TYPE,RECV_BANK_CODE,RECV_BANK_NAME,RECV_MOBILE,LC_STATUS,RECV_VALID_TIME,SEND_VALID_TIME,CONFIRM_VALID_TIME,PAY_VALID_TIME,LC_STATE_RETURN_URL,LC_STATE_NOTIFY_URL,LC_ORDER_DETAIL_URL,THIRD_PARTY_CODE,PAY_TYPE,IS_VALID,CREATE_TIME,UPDATE_TIME,REMARK) VALUES(#{batchNo},#{productId},#{productCode},#{lcNo},#{lcType},#{lcCurrency},#{lcAmount},#{lcFreezingAmount},#{lcBalance},#{mid},#{orderId},#{payerId},#{payerAccno},#{payerType},#{payerBankCode},#{payerBankName},#{payerMobile},#{recvId},#{recvAccno},#{recvType},#{recvBankCode},#{recvBankName},#{recvMobile},#{lcStatus},#{recvValidTime},#{sendValidTime},#{confirmValidTime},#{payValidTime},#{lcStateReturnUrl},#{lcStateNotifyUrl},#{lcOrderDetailUrl},#{thirdPartyCode},#{payType},#{isValid},#{createTime},#{updateTime},#{remark})</insert>
+
+<insert id="addSelective" statementType="PREPARED" parameterType="CifpayLc">
+<selectKey keyProperty="LC_ID" order="AFTER" resultType="java.lang.Long">
+SELECT LAST_INSERT_ID()</selectKey>INSERT INTO cifpay_lc(<if test="batchNo != null">BATCH_NO,</if>
+<if test="productId != null">PRODUCT_ID,</if>
+<if test="productCode != null">PRODUCT_CODE,</if>
+<if test="lcNo != null">LC_NO,</if>
+<if test="lcType != null">LC_TYPE,</if>
+<if test="lcCurrency != null">LC_CURRENCY,</if>
+<if test="lcAmount != null">LC_AMOUNT,</if>
+<if test="lcFreezingAmount != null">LC_FREEZING_AMOUNT,</if>
+<if test="lcBalance != null">LC_BALANCE,</if>
+<if test="mid != null">MID,</if>
+<if test="orderId != null">ORDER_ID,</if>
+<if test="payerId != null">PAYER_ID,</if>
+<if test="payerAccno != null">PAYER_ACCNO,</if>
+<if test="payerType != null">PAYER_TYPE,</if>
+<if test="payerBankCode != null">PAYER_BANK_CODE,</if>
+<if test="payerBankName != null">PAYER_BANK_NAME,</if>
+<if test="payerMobile != null">PAYER_MOBILE,</if>
+<if test="recvId != null">RECV_ID,</if>
+<if test="recvAccno != null">RECV_ACCNO,</if>
+<if test="recvType != null">RECV_TYPE,</if>
+<if test="recvBankCode != null">RECV_BANK_CODE,</if>
+<if test="recvBankName != null">RECV_BANK_NAME,</if>
+<if test="recvMobile != null">RECV_MOBILE,</if>
+<if test="lcStatus != null">LC_STATUS,</if>
+<if test="recvValidTime != null">RECV_VALID_TIME,</if>
+<if test="sendValidTime != null">SEND_VALID_TIME,</if>
+<if test="confirmValidTime != null">CONFIRM_VALID_TIME,</if>
+<if test="payValidTime != null">PAY_VALID_TIME,</if>
+<if test="lcStateReturnUrl != null">LC_STATE_RETURN_URL,</if>
+<if test="lcStateNotifyUrl != null">LC_STATE_NOTIFY_URL,</if>
+<if test="lcOrderDetailUrl != null">LC_ORDER_DETAIL_URL,</if>
+<if test="thirdPartyCode != null">THIRD_PARTY_CODE,</if>
+<if test="payType != null">PAY_TYPE,</if>
+<if test="isValid != null">IS_VALID,</if>
+<if test="createTime != null">CREATE_TIME,</if>
+<if test="updateTime != null">UPDATE_TIME,</if>
+<if test="remark != null">REMARK,</if>
+createTime) VALUES(<if test="batchNo != null">#{batchNo},</if>
+<if test="productId != null">#{productId},</if>
+<if test="productCode != null">#{productCode},</if>
+<if test="lcNo != null">#{lcNo},</if>
+<if test="lcType != null">#{lcType},</if>
+<if test="lcCurrency != null">#{lcCurrency},</if>
+<if test="lcAmount != null">#{lcAmount},</if>
+<if test="lcFreezingAmount != null">#{lcFreezingAmount},</if>
+<if test="lcBalance != null">#{lcBalance},</if>
+<if test="mid != null">#{mid},</if>
+<if test="orderId != null">#{orderId},</if>
+<if test="payerId != null">#{payerId},</if>
+<if test="payerAccno != null">#{payerAccno},</if>
+<if test="payerType != null">#{payerType},</if>
+<if test="payerBankCode != null">#{payerBankCode},</if>
+<if test="payerBankName != null">#{payerBankName},</if>
+<if test="payerMobile != null">#{payerMobile},</if>
+<if test="recvId != null">#{recvId},</if>
+<if test="recvAccno != null">#{recvAccno},</if>
+<if test="recvType != null">#{recvType},</if>
+<if test="recvBankCode != null">#{recvBankCode},</if>
+<if test="recvBankName != null">#{recvBankName},</if>
+<if test="recvMobile != null">#{recvMobile},</if>
+<if test="lcStatus != null">#{lcStatus},</if>
+<if test="recvValidTime != null">#{recvValidTime},</if>
+<if test="sendValidTime != null">#{sendValidTime},</if>
+<if test="confirmValidTime != null">#{confirmValidTime},</if>
+<if test="payValidTime != null">#{payValidTime},</if>
+<if test="lcStateReturnUrl != null">#{lcStateReturnUrl},</if>
+<if test="lcStateNotifyUrl != null">#{lcStateNotifyUrl},</if>
+<if test="lcOrderDetailUrl != null">#{lcOrderDetailUrl},</if>
+<if test="thirdPartyCode != null">#{thirdPartyCode},</if>
+<if test="payType != null">#{payType},</if>
+<if test="isValid != null">#{isValid},</if>
+<if test="createTime != null">#{createTime},</if>
+<if test="updateTime != null">#{updateTime},</if>
+<if test="remark != null">#{remark},</if>
+#{createTime})</insert>
+
+<update id="update" statementType="PREPARED" parameterType="CifpayLc">
+UPDATE cifpay_lc SET BATCH_NO=#{batchNo},PRODUCT_ID=#{productId},PRODUCT_CODE=#{productCode},LC_NO=#{lcNo},LC_TYPE=#{lcType},LC_CURRENCY=#{lcCurrency},LC_AMOUNT=#{lcAmount},LC_FREEZING_AMOUNT=#{lcFreezingAmount},LC_BALANCE=#{lcBalance},MID=#{mid},ORDER_ID=#{orderId},PAYER_ID=#{payerId},PAYER_ACCNO=#{payerAccno},PAYER_TYPE=#{payerType},PAYER_BANK_CODE=#{payerBankCode},PAYER_BANK_NAME=#{payerBankName},PAYER_MOBILE=#{payerMobile},RECV_ID=#{recvId},RECV_ACCNO=#{recvAccno},RECV_TYPE=#{recvType},RECV_BANK_CODE=#{recvBankCode},RECV_BANK_NAME=#{recvBankName},RECV_MOBILE=#{recvMobile},LC_STATUS=#{lcStatus},RECV_VALID_TIME=#{recvValidTime},SEND_VALID_TIME=#{sendValidTime},CONFIRM_VALID_TIME=#{confirmValidTime},PAY_VALID_TIME=#{payValidTime},LC_STATE_RETURN_URL=#{lcStateReturnUrl},LC_STATE_NOTIFY_URL=#{lcStateNotifyUrl},LC_ORDER_DETAIL_URL=#{lcOrderDetailUrl},THIRD_PARTY_CODE=#{thirdPartyCode},PAY_TYPE=#{payType},IS_VALID=#{isValid},CREATE_TIME=#{createTime},UPDATE_TIME=#{updateTime},REMARK=#{remark}
+WHERE LC_ID=#{lcId}
+</update>
+
+<update id="updateSelective" statementType="PREPARED" parameterType="CifpayLc">
+UPDATE cifpay_lc
+<set>
+<if test="batchNo != null">BATCH_NO=#{batchNo},</if>
+<if test="productId != null">PRODUCT_ID=#{productId},</if>
+<if test="productCode != null">PRODUCT_CODE=#{productCode},</if>
+<if test="lcNo != null">LC_NO=#{lcNo},</if>
+<if test="lcType != null">LC_TYPE=#{lcType},</if>
+<if test="lcCurrency != null">LC_CURRENCY=#{lcCurrency},</if>
+<if test="lcAmount != null">LC_AMOUNT=#{lcAmount},</if>
+<if test="lcFreezingAmount != null">LC_FREEZING_AMOUNT=#{lcFreezingAmount},</if>
+<if test="lcBalance != null">LC_BALANCE=#{lcBalance},</if>
+<if test="mid != null">MID=#{mid},</if>
+<if test="orderId != null">ORDER_ID=#{orderId},</if>
+<if test="payerId != null">PAYER_ID=#{payerId},</if>
+<if test="payerAccno != null">PAYER_ACCNO=#{payerAccno},</if>
+<if test="payerType != null">PAYER_TYPE=#{payerType},</if>
+<if test="payerBankCode != null">PAYER_BANK_CODE=#{payerBankCode},</if>
+<if test="payerBankName != null">PAYER_BANK_NAME=#{payerBankName},</if>
+<if test="payerMobile != null">PAYER_MOBILE=#{payerMobile},</if>
+<if test="recvId != null">RECV_ID=#{recvId},</if>
+<if test="recvAccno != null">RECV_ACCNO=#{recvAccno},</if>
+<if test="recvType != null">RECV_TYPE=#{recvType},</if>
+<if test="recvBankCode != null">RECV_BANK_CODE=#{recvBankCode},</if>
+<if test="recvBankName != null">RECV_BANK_NAME=#{recvBankName},</if>
+<if test="recvMobile != null">RECV_MOBILE=#{recvMobile},</if>
+<if test="lcStatus != null">LC_STATUS=#{lcStatus},</if>
+<if test="recvValidTime != null">RECV_VALID_TIME=#{recvValidTime},</if>
+<if test="sendValidTime != null">SEND_VALID_TIME=#{sendValidTime},</if>
+<if test="confirmValidTime != null">CONFIRM_VALID_TIME=#{confirmValidTime},</if>
+<if test="payValidTime != null">PAY_VALID_TIME=#{payValidTime},</if>
+<if test="lcStateReturnUrl != null">LC_STATE_RETURN_URL=#{lcStateReturnUrl},</if>
+<if test="lcStateNotifyUrl != null">LC_STATE_NOTIFY_URL=#{lcStateNotifyUrl},</if>
+<if test="lcOrderDetailUrl != null">LC_ORDER_DETAIL_URL=#{lcOrderDetailUrl},</if>
+<if test="thirdPartyCode != null">THIRD_PARTY_CODE=#{thirdPartyCode},</if>
+<if test="payType != null">PAY_TYPE=#{payType},</if>
+<if test="isValid != null">IS_VALID=#{isValid},</if>
+<if test="createTime != null">CREATE_TIME=#{createTime},</if>
+<if test="updateTime != null">UPDATE_TIME=#{updateTime},</if>
+<if test="remark != null">REMARK=#{remark},</if>
+</set>
+WHERE LC_ID=#{lcId}
+</update>
+
+<delete id="delete" statementType="PREPARED" parameterType="CifpayLc">
+DELETE FROM cifpay_lc WHERE LC_ID=#{lcId}
+</delete>
+
+<select id="getList" statementType="PREPARED" resultMap="baseResultMap">
+SELECT * FROM cifpay_lc ORDER BY updateTime
+</select>
+<select id="getCount" statementType="PREPARED" resultType="Integer">
+SELECT COUNT(*) FROM cifpay_lc
+</select>
+</mapper>
